@@ -10,24 +10,7 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "Svastik Sharma - Software Engineer",
   description:
-    "Software engineer specializing in building accessible, pixel-perfect digital experiences for the web. View my work experience, projects, and recommendations.",
-  icons: {
-    icon: [
-      {
-        url: "/icon-light-32x32.png",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/icon-dark-32x32.png",
-        media: "(prefers-color-scheme: dark)",
-      },
-      {
-        url: "/icon.svg",
-        type: "image/svg+xml",
-      },
-    ],
-    apple: "/apple-icon.png",
-  },
+    "View my work experience, projects, and recommendations."
 }
 
 export default function RootLayout({
