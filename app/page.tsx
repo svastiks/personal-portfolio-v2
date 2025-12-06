@@ -66,10 +66,20 @@ export default function Portfolio() {
   const recommendations = [
     {
       text: `Svastik was a tremendous contributor to the team. He takes ownership and pride in is work to deliver high quality results. 
-      This started with good technical understanding of the problem, even as a junior member of the team he took on several difficult projects requiring architecting the system first and documenting it for review. This then extended to the implementation, delivering clean, robust, tested code. And finally delivery and shipping, which often included him testing end to end to ensure quality.
+      This started with good technical understanding of the problem, even as a junior member of the team he took on several difficult projects requiring architecting the system first and documenting it for review. This then extended to the implementation, delivering clean, robust, tested code. 
+      And finally delivery and shipping, which often included him testing end to end to ensure quality.
       In a very short period of tenure there are critical features, without which, theScore Bet platform would not be what it is today, without Svastik.`,
       author: "Igor Svistoun",
       title: "Engineering Manager, Accounts Core @ PENN Entertainment Inc.",
+      linkedinUrl: "https://www.linkedin.com/in/svastiksharma/details/recommendations/",
+    },
+    {
+      text: `Svastik was a great addition to our team, he is a fast learner, very committed software engineer and has immense potential to grow. It didn't take long after joining the team to start making great contributions on our code base, following our standards and being creative. I also want to 
+      highlight his work optimizing code, he really give his best to find gaps in performance 
+      and suggest solutions. I must also mention he has a great communication verbally and written and always keep up bringing updates about his work. Last but not least he is always absorbing the feedback gave to him and growing from that, definitely the type of professional I want on my team.
+      It was great working with you!`,
+      author: "Ataíde Neto",
+      title: `Tech Lead Manager, Accounts Core @ PENN Entertainment Inc.`,
       linkedinUrl: "https://www.linkedin.com/in/svastiksharma/details/recommendations/",
     },
     {
@@ -98,7 +108,7 @@ export default function Portfolio() {
       Svastik is an excellent team player who was always willing to help his colleagues. He has a positive attitude and was a pleasure to work with. His ability to communicate technical concepts in a clear and concise manner made him a valuable asset to our team.
       Overall, I highly recommend Svastik for any development role. He is an exceptional developer who is eager to learn and has a great attitude. His technical skills, coupled with his ability to work collaboratively, make him an invaluable asset to any organization.`,
       author: "Terence Tan",
-      title: "Frontend Develope @ 4Pay Inc.",
+      title: "Full Stack Developer @ 4Pay Inc.",
       linkedinUrl: "https://www.linkedin.com/in/svastiksharma/details/recommendations/",
     }
   ]
@@ -109,11 +119,14 @@ export default function Portfolio() {
       <aside className="lg:sticky lg:top-0 lg:h-screen lg:w-[40%] lg:flex lg:flex-col lg:justify-start p-8 lg:px-16 lg:py-24">
         <div className="max-w-md mx-auto w-full">
           <div className="flex items-center gap-4 mb-3">
-            <img
-              src="/about-image.jpeg"
-              alt="Svastik Sharma"
-              className="w-25 h-20 rounded-full border-2"
-            />
+            <div className="relative flex-shrink-0 group">
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 blur-sm group-hover:blur-md transition-all duration-300"></div>
+              <img
+                src="/about-image.jpeg"
+                alt="Svastik Sharma"
+                className="relative w-24 h-24 lg:w-32 lg:h-32 rounded-full object-cover border-2 border-border/50 shadow-lg ring-2 ring-primary/10 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:ring-primary/20"
+              />
+            </div>
             <div>
               <h1 className="text-4xl lg:text-5xl font-bold text-foreground">Svastik Sharma</h1>
               <h2 className="text-lg lg:text-xl font-medium text-foreground mt-1">Software Engineer</h2>
@@ -159,7 +172,7 @@ export default function Portfolio() {
           {/* Social Links and Theme Toggle */}
           <div className="flex gap-5 items-center">
             <a
-              href="https://github.com"
+              href="https://github.com/svastiks"
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-foreground transition-colors"
@@ -167,14 +180,14 @@ export default function Portfolio() {
               <Github className="w-6 h-6" />
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/svastiksharma/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
               <Linkedin className="w-6 h-6" />
             </a>
-            <a href="mailto:your@email.com" className="text-muted-foreground hover:text-foreground transition-colors">
+            <a href="mailto:svastiksharma13@gmail.com" className="text-muted-foreground hover:text-foreground transition-colors">
               <Mail className="w-6 h-6" />
             </a>
             <button
@@ -264,15 +277,17 @@ export default function Portfolio() {
                       <p className="text-sm text-foreground font-medium">{rec.author}</p>
                       <p className="text-sm text-muted-foreground">{rec.title}</p>
                     </div>
-                    <a
-                      href={rec.linkedinUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-primary hover:text-primary/80 transition-colors text-xs flex items-center gap-1"
-                    >
-                      View on LinkedIn
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
+                    {rec.linkedinUrl && (
+                      <a
+                        href={rec.linkedinUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary hover:text-primary/80 transition-colors text-xs flex items-center gap-1"
+                      >
+                        View on LinkedIn
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    )}
                   </div>
                 </div>
               )
@@ -289,37 +304,37 @@ export default function Portfolio() {
             <div className="group">
               <div className="grid lg:grid-cols-[25%_75%] gap-2 lg:gap-8">
                 <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mt-1">
-                  Sep 2025 — Present
+                  SEP 2025 — NOV 2025
                 </div>
                 <div>
                   <h4 className="text-foreground font-medium mb-2 group-hover:text-primary transition-colors">
-                    Software Engineer (Accounts Core) | Full Time
-                    <br /> PENN Entertainment Inc.
-                    <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    <a
+                      href="https://www.pennentertainment.com/corp/our-brands/thescore"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline"
+                    >
+                      Software Engineer, Full Time (Accounts Core)
+                      <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    </a>
+                    <br />
+                    <span className="text-muted-foreground font-normal">PENN Entertainment · Toronto, ON</span>
                   </h4>
                   <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-
+                    Led US <strong>iGaming compliance project</strong> from concept to launch. Improved app <strong>p95</strong> <strong>login time</strong> for <strong>5M users</strong> through database optimization. Enhanced security, monitoring, and reduced cloud costs via autoscaling tuning.
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
-                      Elixir
-                    </span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
-                      PostgreSQL
-                    </span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
-                      Kubernetes
-                    </span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
-                      CI/CD
-                    </span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
-                      PostgreSQL
-                    </span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
-                      TypeScript
-                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Elixir</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Phoenix</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">PostgreSQL</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Ecto</span>
                     <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">React</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">TypeScript</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Tailwind CSS</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Kubernetes</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Docker</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">ArgoCD</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Datadog</span>
                   </div>
                 </div>
               </div>
@@ -328,36 +343,32 @@ export default function Portfolio() {
             <div className="group">
               <div className="grid lg:grid-cols-[25%_75%] gap-2 lg:gap-8">
                 <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mt-1">
-                  May 2025 - Aug 2025
+                  MAY 2025 — AUG 2025
                 </div>
                 <div>
                   <h4 className="text-foreground font-medium mb-2 group-hover:text-primary transition-colors">
-                  Software Engineer (Accounts Core) | Coop
-                  <br /> PENN Entertainment Inc.
-                    <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    <a
+                      href="https://www.pennentertainment.com/corp/our-brands/thescore"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline"
+                    >
+                      Software Engineer, Coop (Accounts Core)
+                      <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    </a>
+                    <br />
+                    <span className="text-muted-foreground font-normal">PENN Entertainment · Toronto, ON</span>
                   </h4>
                   <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                    Improved user retention by implementing auto-generated usernames and refining sign-up flows. Led <strong>PgBouncer</strong> migration with <strong>performance testing</strong> via <strong>K6</strong>, optimizing the <strong>Elixir</strong> codebase to improve database connection efficiency and reduce latency.
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
-                      Elixir
-                    </span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
-                      PostgreSQL
-                    </span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
-                      Kubernetes
-                    </span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
-                      CI/CD
-                    </span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
-                      PostgreSQL
-                    </span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
-                      TypeScript
-                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Elixir</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">PostgreSQL</span>
                     <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">React</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">PgBouncer</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">K6</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Datadog</span>
                   </div>
                 </div>
               </div>
@@ -366,37 +377,138 @@ export default function Portfolio() {
             <div className="group">
               <div className="grid lg:grid-cols-[25%_75%] gap-2 lg:gap-8">
                 <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mt-1">
-                  2016 — 2018
+                  SEP 2024 — DEC 2024
                 </div>
                 <div>
                   <h4 className="text-foreground font-medium mb-2 group-hover:text-primary transition-colors">
-                    Junior Developer · First Company
-                    <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    <a
+                      href="https://about.thescore.bet/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline"
+                    >
+                      Software Engineer, Coop (Sports Core)
+                      <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    </a>
+                    <br />
+                    <span className="text-muted-foreground font-normal">theScore Bet · Toronto, ON</span>
                   </h4>
                   <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                    Collaborated with a team of developers to build and maintain responsive web applications for various
-                    clients. Gained experience in modern web technologies and agile development practices.
+                    Designed and implemented a <strong>Golf</strong> data <strong>ingestion pipeline</strong> for <strong>3 million</strong> users using <strong>Elixir</strong>, <strong>MySQL</strong>, <strong>Oban</strong>, and <strong>PostgreSQL</strong>. Improved monitoring with <strong>Datadog</strong> and eliminated external dependencies by engineering Postgres mapping tables.
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
-                      HTML & CSS
-                    </span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
-                      JavaScript
-                    </span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
-                      jQuery
-                    </span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
-                      WordPress
-                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Elixir</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">MySQL</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Oban</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">PostgreSQL</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Datadog</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="group">
+              <div className="grid lg:grid-cols-[25%_75%] gap-2 lg:gap-8">
+                <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mt-1">
+                  MAY 2024 — AUG 2024
+                </div>
+                <div>
+                  <h4 className="text-foreground font-medium mb-2 group-hover:text-primary transition-colors">
+                    <a
+                      href="https://about.thescore.bet/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline"
+                    >
+                      Site Reliability Engineer (SRE), Coop
+                      <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    </a>
+                    <br />
+                    <span className="text-muted-foreground font-normal">theScore Bet · Toronto, ON</span>
+                  </h4>
+                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                    Automated end-to-end release pipeline using <strong>GitHub Actions</strong> and <strong>ArgoCD</strong>. Developed a <strong>Slack bot</strong> with <strong>Python (Flask)</strong> and Jira REST API to automate release creation. Implemented PR validation and Feature Flag change detection to reduce manual QA.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">GitHub Actions</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">ArgoCD</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Python</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Flask</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Jira API</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Slack API</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">CRON</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="group">
+              <div className="grid lg:grid-cols-[25%_75%] gap-2 lg:gap-8">
+                <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mt-1">
+                  MAY 2023 — AUG 2023
+                </div>
+                <div>
+                  <h4 className="text-foreground font-medium mb-2 group-hover:text-primary transition-colors">
+                    <a
+                      href="https://www.4pay.ca/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline"
+                    >
+                      Software Developer, Coop
+                      <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    </a>
+                    <br />
+                    <span className="text-muted-foreground font-normal">4Pay Inc. · Toronto, ON</span>
+                  </h4>
+                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                    Developed workflows using <strong>JavaScript</strong>, <strong>jQuery</strong>, and <strong>CakePHP</strong> handling <strong>5+ API endpoints</strong>. Led team of <strong>3</strong> interns and supported <strong>DB migration</strong> by writing <strong>SQL</strong> scripts, resolving production issues post-migration.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">JavaScript</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">jQuery</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">CakePHP</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">SQL</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="group">
+              <div className="grid lg:grid-cols-[25%_75%] gap-2 lg:gap-8">
+                <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mt-1">
+                  JAN 2023 — APR 2023
+                </div>
+                <div>
+                  <h4 className="text-foreground font-medium mb-2 group-hover:text-primary transition-colors">
+                    <a
+                      href="https://www.4pay.ca/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline"
+                    >
+                      Software Developer, Coop
+                      <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    </a>
+                    <br />
+                    <span className="text-muted-foreground font-normal">4Pay Inc. · Toronto, ON</span>
+                  </h4>
+                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                    Revamped existing project with new <strong>UI</strong> using <strong>JavaScript (jQuery)</strong>, <strong>Bootstrap</strong>, and <strong>CakePHP</strong>. Integrated <strong>RESTful APIs</strong> (XML to JSON) and reduced page loading times by <strong>30%</strong>, improving user satisfaction.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">JavaScript</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">jQuery</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Bootstrap</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">CakePHP</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">RESTful APIs</span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="mt-12">
+          {/* <div className="mt-12">
             <a
               href="/resume.pdf"
               target="_blank"
@@ -406,7 +518,7 @@ export default function Portfolio() {
               View Full Resume
               <ExternalLink className="ml-2 w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
             </a>
-          </div>
+          </div> */}
         </section>
 
         {/* Projects Section */}
@@ -415,128 +527,225 @@ export default function Portfolio() {
             <h3 className="text-sm font-bold uppercase tracking-widest text-foreground mb-4">Projects</h3>
           </div>
           <div className="space-y-12">
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="group block">
+            <div className="group block">
               <div className="grid lg:grid-cols-[30%_70%] gap-4 lg:gap-8">
-                <div className="order-2 lg:order-1">
+                <a
+                  href="https://macpcos.netlify.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="order-2 lg:order-1 rounded border border-border group-hover:border-primary/50 transition-colors overflow-hidden aspect-video block"
+                >
                   <img
-                    src="/web-application-dashboard.png"
-                    alt="Project screenshot"
-                    className="rounded border border-border w-full aspect-video object-cover group-hover:border-primary/50 transition-colors"
+                    src="/mcmaster-pcos.png"
+                    alt="McMaster Club Website"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
                   />
-                </div>
+                </a>
                 <div className="order-1 lg:order-2">
                   <h4 className="text-foreground font-medium mb-2 group-hover:text-primary transition-colors">
-                    Build a Spotify Connected App
-                    <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    <a
+                      href="https://macpcos.netlify.app/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline"
+                    >
+                      McMaster Club Website
+                      <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    </a>
+                    {" "}
+                    <span className="text-muted-foreground font-normal text-sm">|</span>{" "}
+                    <a
+                      href="https://github.com/svastiks/mcmaster-pcos-club"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                    >
+                      Github
+                      <ExternalLink className="inline-block ml-1 w-3 h-3 -translate-y-[2px]" />
+                    </a>
                   </h4>
                   <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                    A comprehensive video course that teaches students how to build a web app with the Spotify Web API.
-                    Topics covered include user auth flows, Node, Express, React, Styled Components, and more.
+                    Building a club website for my sister's McMaster PCOS student club.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">TypeScript</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Next.js</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">React</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Tailwind CSS</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Netlify</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="group block">
+              <div className="grid lg:grid-cols-[30%_70%] gap-4 lg:gap-8">
+                <a
+                  href="https://youtu.be/KAKpj6vLnRs"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="order-2 lg:order-1 rounded border border-border group-hover:border-primary/50 transition-colors overflow-hidden aspect-video block"
+                >
+                  <img
+                    src="/workout_extractor.png"
+                    alt="Workout Extractor"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </a>
+                <div className="order-1 lg:order-2">
+                  <h4 className="text-foreground font-medium mb-2 group-hover:text-primary transition-colors">
+                    <a
+                        href="https://youtu.be/KAKpj6vLnRs"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:underline"
+                      >
+                        Workout Extractor
+                        <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                      </a>
+                    <span className="text-muted-foreground font-normal text-sm">|</span>{" "}
+                    <a
+                      href="https://github.com/svastiks/workout-extracter"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                    >
+                      Github
+                      <ExternalLink className="inline-block ml-1 w-3 h-3 -translate-y-[2px]" />
+                    </a>
+                  </h4>
+                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                    Developed an <strong>LLM-powered workout extraction tool</strong> that analyzes YouTube fitness videos to generate detailed exercise plans. The application features a creator catalogue of analyzed videos, and real-time video processing.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Spring Boot</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Java</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">PostgreSQL</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">TypeScript</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Next.js</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">React</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Tailwind CSS</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="group block">
+              <div className="grid lg:grid-cols-[30%_70%] gap-4 lg:gap-8">
+                <a
+                  href="https://quicktravelplan.netlify.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="order-2 lg:order-1 rounded border border-border group-hover:border-primary/50 transition-colors overflow-hidden aspect-video block"
+                >
+                  <img
+                    src="/travel-planner.png"
+                    alt="Travel Planner"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </a>
+                <div className="order-1 lg:order-2">
+                  <h4 className="text-foreground font-medium mb-2 group-hover:text-primary transition-colors">
+                    <a
+                      href="https://quicktravelplan.netlify.app/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline"
+                    >
+                      Travel Planner
+                      <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    </a>
+                    {" "}
+                    <span className="text-muted-foreground font-normal text-sm">|</span>{" "}
+                    <a
+                      href="https://github.com/svastiks/travel-planner-app"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                    >
+                      Github
+                      <ExternalLink className="inline-block ml-1 w-3 h-3 -translate-y-[2px]" />
+                    </a>
+                  </h4>
+                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                    Developed a travel app with <strong>REST APIs</strong> for user-login, registration, and location marking using <strong>Node.js</strong> and <strong>Express</strong> and a frontend in <strong>React</strong>. Integrated <strong>Mapbox API</strong>, enabling users to add pins on a 3D globe to mark locations <em>(I enjoy travelling!)</em>
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Node.js</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Express</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">React</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">MongoDB</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Mapbox API</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">React-toastify</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Bcrypt</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="group block">
+              <div className="grid lg:grid-cols-[30%_70%] gap-4 lg:gap-8">
+                <a
+                  href="https://investmentracker.netlify.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="order-2 lg:order-1 rounded border border-border group-hover:border-primary/50 transition-colors overflow-hidden aspect-video block"
+                >
+                  <img
+                    src="/investment-planner.png"
+                    alt="Investment Planner"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </a>
+                <div className="order-1 lg:order-2">
+                  <h4 className="text-foreground font-medium mb-2 group-hover:text-primary transition-colors">
+                    <a
+                      href="https://investmentracker.netlify.app/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline"
+                    >
+                      Investment Planner
+                      <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    </a>
+                    {" "}
+                    <span className="text-muted-foreground font-normal text-sm">|</span>{" "}
+                    <a
+                      href="https://github.com/svastiks/react-all-investments-portfolio"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                    >
+                      Github
+                      <ExternalLink className="inline-block ml-1 w-3 h-3 -translate-y-[2px]" />
+                    </a>
+                  </h4>
+                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                    Developed a <strong>React</strong> web app utilizing <strong>live API</strong> data to track crypto investments, featuring graphical representations of weekly performance. Implemented a secure login system with <strong>Node.js, Express.js,</strong> and <strong>MongoDB</strong>, enabling user account creation and data storage. <em>(Built this to enforce consistent investment habits!)</em>
                   </p>
                   <div className="flex flex-wrap gap-2">
                     <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">React</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
-                      Express
-                    </span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
-                      Spotify API
-                    </span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
-                      Node.js
-                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Node.js</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Express</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">RESTful APIs</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">MongoDB</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Chart.js</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">CoinGecko API</span>
                   </div>
                 </div>
               </div>
-            </a>
-
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="group block">
-              <div className="grid lg:grid-cols-[30%_70%] gap-4 lg:gap-8">
-                <div className="order-2 lg:order-1">
-                  <img
-                    src="/spotify-profile-interface.jpg"
-                    alt="Project screenshot"
-                    className="rounded border border-border w-full aspect-video object-cover group-hover:border-primary/50 transition-colors"
-                  />
-                </div>
-                <div className="order-1 lg:order-2">
-                  <h4 className="text-foreground font-medium mb-2 group-hover:text-primary transition-colors">
-                    Spotify Profile
-                    <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                  </h4>
-                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                    A web app for visualizing personalized Spotify data. View your top artists, top tracks, recently
-                    played tracks, and detailed audio information about each track. Create and save new playlists of
-                    recommended tracks based on your existing playlists and more.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">React</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
-                      Styled Components
-                    </span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
-                      Express
-                    </span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
-                      Spotify API
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </a>
-
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="group block">
-              <div className="grid lg:grid-cols-[30%_70%] gap-4 lg:gap-8">
-                <div className="order-2 lg:order-1">
-                  <img
-                    src="/dark-code-editor.png"
-                    alt="Project screenshot"
-                    className="rounded border border-border w-full aspect-video object-cover group-hover:border-primary/50 transition-colors"
-                  />
-                </div>
-                <div className="order-1 lg:order-2">
-                  <h4 className="text-foreground font-medium mb-2 group-hover:text-primary transition-colors">
-                    Halcyon Theme
-                    <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                  </h4>
-                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                    A minimal, dark blue theme for VS Code, Sublime Text, Atom, iTerm, and more. Available on Visual
-                    Studio Marketplace, Package Control, Atom Package Manager, and npm.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
-                      VS Code
-                    </span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
-                      Sublime Text
-                    </span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Atom</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
-                      iTerm2
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-
-          <div className="mt-12">
-            <a
-              href="https://github.com"
-              target="_blank"
-              className="inline-flex items-center text-sm font-medium text-foreground hover:text-primary transition-colors group"
-              rel="noreferrer"
-            >
-              View Full Project Archive
-              <ExternalLink className="ml-2 w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-            </a>
+            </div>
           </div>
         </section>
 
         {/* Footer */}
         <footer className="text-sm text-muted-foreground">
           <p>
-            Designed in Figma and coded in Visual Studio Code by yours truly. Built with Next.js and Tailwind CSS,
-            deployed with Vercel.
+            Built with Next.js, React, TypeScript, and Tailwind CSS  ||  Svastik © 2025
           </p>
         </footer>
       </main>
