@@ -7,6 +7,7 @@ export default function Portfolio() {
   const [activeSection, setActiveSection] = useState("about")
   const [theme, setTheme] = useState<"light" | "dark">("light")
   const [expandedRecommendations, setExpandedRecommendations] = useState<Set<number>>(new Set())
+  const [showNavbar, setShowNavbar] = useState(false)
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null
@@ -54,6 +55,34 @@ export default function Portfolio() {
 
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  useEffect(() => {
+    const handleNavbarVisibility = () => {
+      // Only show navbar on mobile
+      const isMobile = window.innerWidth < 1024
+      if (!isMobile) {
+        setShowNavbar(false)
+        return
+      }
+
+      // Find the social icons container
+      const socialIcons = document.getElementById("social-icons")
+      if (!socialIcons) return
+
+      const socialIconsRect = socialIcons.getBoundingClientRect()
+      // Show navbar when social icons are scrolled past (bottom is above viewport top)
+      setShowNavbar(socialIconsRect.bottom < 0)
+    }
+
+    window.addEventListener("scroll", handleNavbarVisibility)
+    window.addEventListener("resize", handleNavbarVisibility)
+    handleNavbarVisibility() // Check on mount
+
+    return () => {
+      window.removeEventListener("scroll", handleNavbarVisibility)
+      window.removeEventListener("resize", handleNavbarVisibility)
+    }
   }, [])
 
   const scrollToSection = (sectionId: string) => {
@@ -115,7 +144,38 @@ export default function Portfolio() {
 
   return (
     <div className="min-h-screen lg:flex">
-      {/* Left Sidebar - Fixed */}
+      {/* Sticky Navbar - Shows when scrolled past social icons on mobile only */}
+      {showNavbar && (
+        <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border shadow-sm lg:hidden">
+          <div className="px-4 py-2 flex items-center justify-between max-w-7xl mx-auto">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <h1 className="text-base sm:text-lg font-bold text-foreground">Svastik Sharma</h1>
+              <span className="text-muted-foreground hidden sm:inline">|</span>
+              <h2 className="text-xs sm:text-sm font-medium text-muted-foreground">Software Engineer</h2>
+            </div>
+            <div className="flex items-center gap-2 sm:gap-4">
+              {[
+                { id: "about", label: "ABOUT", number: "01" },
+                { id: "recommendations", label: "RECOMMENDATIONS", number: "02" },
+                { id: "experience", label: "EXPERIENCE", number: "03" },
+                { id: "projects", label: "PROJECTS", number: "04" },
+              ].map((section) => (
+                <button
+                  key={section.id}
+                  onClick={() => scrollToSection(section.id)}
+                  className={`text-xs font-medium uppercase tracking-widest transition-colors ${
+                    activeSection === section.id ? "text-primary" : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {section.number}
+                </button>
+              ))}
+            </div>
+          </div>
+        </nav>
+      )}
+
+      {/* Left Sidebar */}
       <aside className="lg:sticky lg:top-0 lg:h-screen lg:w-[40%] lg:flex lg:flex-col lg:justify-start p-8 lg:px-16 lg:py-24">
         <div className="max-w-md mx-auto w-full">
           <div className="flex items-center gap-4 mb-3">
@@ -128,15 +188,15 @@ export default function Portfolio() {
               />
             </div>
             <div>
-              <h1 className="text-4xl lg:text-5xl font-bold text-foreground">Svastik Sharma</h1>
-              <h2 className="text-lg lg:text-xl font-medium text-foreground mt-1">Software Engineer</h2>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">Svastik Sharma</h1>
+              <h2 className="text-base sm:text-lg lg:text-xl font-medium text-foreground mt-1">Software Engineer</h2>
             </div>
           </div>
-          <p className="text-muted-foreground max-w-xs mb-16">
+          <p className="text-muted-foreground max-w-xs mb-8 lg:mb-16">
           </p>
 
           {/* Navigation */}
-          <nav className="hidden lg:block mb-16">
+          <nav className="block mb-8 lg:mb-16">
             <ul className="space-y-4">
               {[
                 { id: "about", label: "ABOUT", number: "01" },
@@ -170,7 +230,7 @@ export default function Portfolio() {
           </nav>
 
           {/* Social Links and Theme Toggle */}
-          <div className="flex gap-5 items-center">
+          <div id="social-icons" className="flex gap-5 items-center">
             <a
               href="https://github.com/svastiks"
               target="_blank"
@@ -205,8 +265,8 @@ export default function Portfolio() {
       <main className="lg:w-[60%] p-8 lg:pr-16 lg:py-24">
         {/* About Section */}
         <section id="about" className="mb-24 scroll-mt-24">
-          <div className="lg:hidden mb-12">
-            <h3 className="text-sm font-bold uppercase tracking-widest text-foreground mb-4">About</h3>
+          <div className="lg:hidden mb-3">
+            <h3 className="text-lg sm:text-xl font-bold uppercase tracking-widest text-foreground mb-2 pb-2 border-b-2 border-primary inline-block">About</h3>
           </div>
           <div className="space-y-4 text-muted-foreground leading-relaxed">
             <p>
@@ -216,7 +276,7 @@ export default function Portfolio() {
               <br />
               <br />
 
-              I'm passioante about building secure, scalable and well-tested software, with careful consideration for the infrastructure that supports it and the platform it's deployed on.
+              I'm passionate about building secure, scalable and well-tested software, with careful consideration for the infrastructure that supports it and the platform it's deployed on.
               <br />
               <br />
               I enjoy turning complex technical problems into clear, structured problems that can be solved methodically.
@@ -249,8 +309,8 @@ export default function Portfolio() {
 
         {/* Recommendations Section */}
         <section id="recommendations" className="mb-24 scroll-mt-24">
-          <div className="lg:hidden mb-12">
-            <h3 className="text-sm font-bold uppercase tracking-widest text-foreground mb-4">Recommendations</h3>
+          <div className="lg:hidden mb-3">
+            <h3 className="text-lg sm:text-xl font-bold uppercase tracking-widest text-foreground mb-2 pb-2 border-b-2 border-primary inline-block">Recommendations</h3>
           </div>
           <div className="space-y-8">
             {recommendations.map((rec, index) => {
@@ -297,8 +357,8 @@ export default function Portfolio() {
 
         {/* Experience Section */}
         <section id="experience" className="mb-24 scroll-mt-24">
-          <div className="lg:hidden mb-12">
-            <h3 className="text-sm font-bold uppercase tracking-widest text-foreground mb-4">Experience</h3>
+          <div className="lg:hidden mb-3">
+            <h3 className="text-lg sm:text-xl font-bold uppercase tracking-widest text-foreground mb-2 pb-2 border-b-2 border-primary inline-block">Experience</h3>
           </div>
           <div className="space-y-12">
             <div className="group">
@@ -307,19 +367,26 @@ export default function Portfolio() {
                   SEP 2025 — NOV 2025
                 </div>
                 <div>
-                  <h4 className="text-foreground font-medium mb-2 group-hover:text-primary transition-colors">
-                    <a
-                      href="https://www.pennentertainment.com/corp/our-brands/thescore"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:underline"
-                    >
-                      Software Engineer, Full Time (Accounts Core)
-                      <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                    </a>
-                    <br />
-                    <span className="text-muted-foreground font-normal">PENN Entertainment · Toronto, ON</span>
-                  </h4>
+                  <div className="flex items-start gap-3 mb-2">
+                    <img src="/company_logo_1.png" alt="PENN Entertainment" className="w-12 h-12 object-contain flex-shrink-0 mt-1" />
+                    <div className="flex-1">
+                      <h4 className="text-foreground font-medium group-hover:text-primary transition-colors">
+                        <a
+                          href="https://www.pennentertainment.com/corp/our-brands/thescore"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:underline"
+                        >
+                          Software Engineer, Full Time (Accounts Core)
+                          <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                        </a>
+                        <br />
+                        <span className="text-muted-foreground font-normal">
+                          PENN Entertainment · Toronto, ON
+                        </span>
+                      </h4>
+                    </div>
+                  </div>
                   <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
                     Led US <strong>iGaming compliance project</strong> from concept to launch. Improved app <strong>p95</strong> <strong>login time</strong> for <strong>5M users</strong> through database optimization. Enhanced security, monitoring, and reduced cloud costs via autoscaling tuning.
                   </p>
@@ -346,19 +413,26 @@ export default function Portfolio() {
                   MAY 2025 — AUG 2025
                 </div>
                 <div>
-                  <h4 className="text-foreground font-medium mb-2 group-hover:text-primary transition-colors">
-                    <a
-                      href="https://www.pennentertainment.com/corp/our-brands/thescore"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:underline"
-                    >
-                      Software Engineer, Coop (Accounts Core)
-                      <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                    </a>
-                    <br />
-                    <span className="text-muted-foreground font-normal">PENN Entertainment · Toronto, ON</span>
-                  </h4>
+                  <div className="flex items-start gap-3 mb-2">
+                    <img src="/company_logo_1.png" alt="PENN Entertainment" className="w-12 h-12 object-contain flex-shrink-0 mt-1" />
+                    <div className="flex-1">
+                      <h4 className="text-foreground font-medium group-hover:text-primary transition-colors">
+                        <a
+                          href="https://www.pennentertainment.com/corp/our-brands/thescore"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:underline"
+                        >
+                          Software Engineer, Coop (Accounts Core)
+                          <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                        </a>
+                        <br />
+                        <span className="text-muted-foreground font-normal">
+                          PENN Entertainment · Toronto, ON
+                        </span>
+                      </h4>
+                    </div>
+                  </div>
                   <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
                     Improved user retention by implementing auto-generated usernames and refining sign-up flows. Led <strong>PgBouncer</strong> migration with <strong>performance testing</strong> via <strong>K6</strong>, optimizing the <strong>Elixir</strong> codebase to improve database connection efficiency and reduce latency.
                   </p>
@@ -380,19 +454,26 @@ export default function Portfolio() {
                   SEP 2024 — DEC 2024
                 </div>
                 <div>
-                  <h4 className="text-foreground font-medium mb-2 group-hover:text-primary transition-colors">
-                    <a
-                      href="https://about.thescore.bet/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:underline"
-                    >
-                      Software Engineer, Coop (Sports Core)
-                      <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                    </a>
-                    <br />
-                    <span className="text-muted-foreground font-normal">theScore Bet · Toronto, ON</span>
-                  </h4>
+                  <div className="flex items-start gap-3 mb-2">
+                    <img src="/company_logo_2.png" alt="theScore Bet" className="w-12 h-12 object-contain flex-shrink-0 mt-1" />
+                    <div className="flex-1">
+                      <h4 className="text-foreground font-medium group-hover:text-primary transition-colors">
+                        <a
+                          href="https://about.thescore.bet/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:underline"
+                        >
+                          Software Engineer, Coop (Sports Core)
+                          <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                        </a>
+                        <br />
+                        <span className="text-muted-foreground font-normal">
+                          theScore Bet · Toronto, ON
+                        </span>
+                      </h4>
+                    </div>
+                  </div>
                   <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
                     Designed and implemented a <strong>Golf</strong> data <strong>ingestion pipeline</strong> for <strong>3 million</strong> users using <strong>Elixir</strong>, <strong>MySQL</strong>, <strong>Oban</strong>, and <strong>PostgreSQL</strong>. Improved monitoring with <strong>Datadog</strong> and eliminated external dependencies by engineering Postgres mapping tables.
                   </p>
@@ -413,19 +494,26 @@ export default function Portfolio() {
                   MAY 2024 — AUG 2024
                 </div>
                 <div>
-                  <h4 className="text-foreground font-medium mb-2 group-hover:text-primary transition-colors">
-                    <a
-                      href="https://about.thescore.bet/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:underline"
-                    >
-                      Site Reliability Engineer (SRE), Coop
-                      <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                    </a>
-                    <br />
-                    <span className="text-muted-foreground font-normal">theScore Bet · Toronto, ON</span>
-                  </h4>
+                  <div className="flex items-start gap-3 mb-2">
+                    <img src="/company_logo_2.png" alt="theScore Bet" className="w-12 h-12 object-contain flex-shrink-0 mt-1" />
+                    <div className="flex-1">
+                      <h4 className="text-foreground font-medium group-hover:text-primary transition-colors">
+                        <a
+                          href="https://about.thescore.bet/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:underline"
+                        >
+                          Site Reliability Engineer (SRE), Coop
+                          <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                        </a>
+                        <br />
+                        <span className="text-muted-foreground font-normal">
+                          theScore Bet · Toronto, ON
+                        </span>
+                      </h4>
+                    </div>
+                  </div>
                   <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
                     Automated end-to-end release pipeline using <strong>GitHub Actions</strong> and <strong>ArgoCD</strong>. Developed a <strong>Slack bot</strong> with <strong>Python (Flask)</strong> and Jira REST API to automate release creation. Implemented PR validation and Feature Flag change detection to reduce manual QA.
                   </p>
@@ -448,19 +536,26 @@ export default function Portfolio() {
                   MAY 2023 — AUG 2023
                 </div>
                 <div>
-                  <h4 className="text-foreground font-medium mb-2 group-hover:text-primary transition-colors">
-                    <a
-                      href="https://www.4pay.ca/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:underline"
-                    >
-                      Software Developer, Coop
-                      <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                    </a>
-                    <br />
-                    <span className="text-muted-foreground font-normal">4Pay Inc. · Toronto, ON</span>
-                  </h4>
+                  <div className="flex items-start gap-3 mb-2">
+                    <img src="/company_logo_3.png" alt="4Pay Inc." className="w-12 h-12 object-contain flex-shrink-0 mt-1" />
+                    <div className="flex-1">
+                      <h4 className="text-foreground font-medium group-hover:text-primary transition-colors">
+                        <a
+                          href="https://www.4pay.ca/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:underline"
+                        >
+                          Software Developer, Coop
+                          <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                        </a>
+                        <br />
+                        <span className="text-muted-foreground font-normal">
+                          4Pay Inc. · Toronto, ON
+                        </span>
+                      </h4>
+                    </div>
+                  </div>
                   <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
                     Developed workflows using <strong>JavaScript</strong>, <strong>jQuery</strong>, and <strong>CakePHP</strong> handling <strong>5+ API endpoints</strong>. Led team of <strong>3</strong> interns and supported <strong>DB migration</strong> by writing <strong>SQL</strong> scripts, resolving production issues post-migration.
                   </p>
@@ -480,19 +575,26 @@ export default function Portfolio() {
                   JAN 2023 — APR 2023
                 </div>
                 <div>
-                  <h4 className="text-foreground font-medium mb-2 group-hover:text-primary transition-colors">
-                    <a
-                      href="https://www.4pay.ca/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:underline"
-                    >
-                      Software Developer, Coop
-                      <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                    </a>
-                    <br />
-                    <span className="text-muted-foreground font-normal">4Pay Inc. · Toronto, ON</span>
-                  </h4>
+                  <div className="flex items-start gap-3 mb-2">
+                    <img src="/company_logo_3.png" alt="4Pay Inc." className="w-12 h-12 object-contain flex-shrink-0 mt-1" />
+                    <div className="flex-1">
+                      <h4 className="text-foreground font-medium group-hover:text-primary transition-colors">
+                        <a
+                          href="https://www.4pay.ca/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:underline"
+                        >
+                          Software Developer, Coop
+                          <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                        </a>
+                        <br />
+                        <span className="text-muted-foreground font-normal">
+                          4Pay Inc. · Toronto, ON
+                        </span>
+                      </h4>
+                    </div>
+                  </div>
                   <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
                     Revamped existing project with new <strong>UI</strong> using <strong>JavaScript (jQuery)</strong>, <strong>Bootstrap</strong>, and <strong>CakePHP</strong>. Integrated <strong>RESTful APIs</strong> (XML to JSON) and reduced page loading times by <strong>30%</strong>, improving user satisfaction.
                   </p>
@@ -523,8 +625,8 @@ export default function Portfolio() {
 
         {/* Projects Section */}
         <section id="projects" className="mb-24 scroll-mt-24">
-          <div className="lg:hidden mb-12">
-            <h3 className="text-sm font-bold uppercase tracking-widest text-foreground mb-4">Projects</h3>
+          <div className="lg:hidden mb-3">
+            <h3 className="text-lg sm:text-xl font-bold uppercase tracking-widest text-foreground mb-2 pb-2 border-b-2 border-primary inline-block">Projects</h3>
           </div>
           <div className="space-y-12">
             <div className="group block">
