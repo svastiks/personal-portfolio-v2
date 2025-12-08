@@ -364,7 +364,7 @@ export default function Portfolio() {
             <div className="group">
               <div className="grid lg:grid-cols-[25%_75%] gap-2 lg:gap-8">
                 <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mt-1">
-                  SEP 2025 — NOV 2025
+                  SEP 2025 — DEC 2025
                 </div>
                 <div>
                   <div className="flex items-start gap-3 mb-2">
