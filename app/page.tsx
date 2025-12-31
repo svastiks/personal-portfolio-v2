@@ -684,6 +684,61 @@ export default function Portfolio() {
             <div className="group block">
               <div className="grid lg:grid-cols-[30%_70%] gap-4 lg:gap-8">
                 <a
+                  href="https://youtu.be/RQTsol0FD7s"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="order-2 lg:order-1 rounded border border-border group-hover:border-primary/50 transition-colors overflow-hidden aspect-video block"
+                >
+                  <img
+                    src="/auction-system.png"
+                    alt="Auction E-commerce System"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </a>
+                <div className="order-1 lg:order-2">
+                  <h4 className="text-foreground font-medium mb-2 group-hover:text-primary transition-colors">
+                    <a
+                      href="https://youtu.be/RQTsol0FD7s/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline"
+                    >
+                      Auction E-commerce System
+                      <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    </a>
+                    {" "}
+                    <span className="text-muted-foreground font-normal text-sm">|</span>{" "}
+                    <a
+                      href="https://github.com/svastiks/auction-ecom-system-eecs-4413"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                    >
+                      Github
+                      <ExternalLink className="inline-block ml-1 w-3 h-3 -translate-y-[2px]" />
+                    </a>
+                  </h4>
+                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                  Architected a full-stack auction platform using <strong>FastAPI</strong> and <strong>React</strong> 
+                  to support real-time bidding and order management. Containerized services with <strong>Docker</strong> and managed 
+                  database <strong>schema migrations with Alembic</strong>. Built a comprehensive Postman test suite to validate 
+                  end-to-end buyer and seller workflows.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">TypeScript</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Next.js</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">React</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Tailwind CSS</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Netlify</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="group block">
+              <div className="grid lg:grid-cols-[30%_70%] gap-4 lg:gap-8">
+                <a
                   href="https://youtu.be/KAKpj6vLnRs"
                   target="_blank"
                   rel="noopener noreferrer"
