@@ -902,7 +902,7 @@ export default function Portfolio() {
         {/* Footer */}
         <footer className="text-sm text-muted-foreground">
           <p>
-            Built with Next.js, React, TypeScript, and Tailwind CSS  ||  Svastik © 2025
+            Built with Next.js, React, TypeScript, and Tailwind CSS  ||  Svastik © 2026
           </p>
         </footer>
       </main>
