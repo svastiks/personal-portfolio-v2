@@ -417,7 +417,7 @@ export default function Portfolio() {
                 <div>
                   <div className="flex items-start gap-3 mb-2">
                     <img
-                      src="/company_logo_1.png"
+                      src="/company_logo_4.png"
                       alt="RealEstateContent.ai"
                       className="w-12 h-12 object-contain flex-shrink-0 mt-1"
                     />
