@@ -1,96 +1,104 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { Github, Linkedin, Mail, ExternalLink, Moon, Sun } from "lucide-react"
+import { useEffect, useState } from "react";
+import { Github, Linkedin, Mail, ExternalLink, Moon, Sun } from "lucide-react";
 
 export default function Portfolio() {
-  const [activeSection, setActiveSection] = useState("about")
-  const [theme, setTheme] = useState<"light" | "dark">("light")
-  const [expandedRecommendations, setExpandedRecommendations] = useState<Set<number>>(new Set())
-  const [showNavbar, setShowNavbar] = useState(false)
+  const [activeSection, setActiveSection] = useState("about");
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [expandedRecommendations, setExpandedRecommendations] = useState<
+    Set<number>
+  >(new Set());
+  const [showNavbar, setShowNavbar] = useState(false);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null
-    const systemTheme = window.matchMedia("(prefers-color-scheme: light)").matches ? "dark" : "light"
-    const initialTheme = savedTheme || systemTheme
-    setTheme(initialTheme)
-    document.documentElement.classList.toggle("dark", initialTheme === "dark")
-  }, [])
+    const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
+    const systemTheme = window.matchMedia("(prefers-color-scheme: light)")
+      .matches
+      ? "dark"
+      : "light";
+    const initialTheme = savedTheme || systemTheme;
+    setTheme(initialTheme);
+    document.documentElement.classList.toggle("dark", initialTheme === "dark");
+  }, []);
 
   const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light"
-    setTheme(newTheme)
-    localStorage.setItem("theme", newTheme)
-    document.documentElement.classList.toggle("dark", newTheme === "dark")
-  }
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+    document.documentElement.classList.toggle("dark", newTheme === "dark");
+  };
 
   const toggleRecommendation = (index: number) => {
     setExpandedRecommendations((prev) => {
-      const newSet = new Set(prev)
+      const newSet = new Set(prev);
       if (newSet.has(index)) {
-        newSet.delete(index)
+        newSet.delete(index);
       } else {
-        newSet.add(index)
+        newSet.add(index);
       }
-      return newSet
-    })
-  }
+      return newSet;
+    });
+  };
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["about", "recommendations", "experience", "projects"]
-      const scrollPosition = window.scrollY + window.innerHeight / 3
+      const sections = ["about", "recommendations", "experience", "projects"];
+      const scrollPosition = window.scrollY + window.innerHeight / 3;
 
       for (const section of sections) {
-        const element = document.getElementById(section)
+        const element = document.getElementById(section);
         if (element) {
-          const { offsetTop, offsetHeight } = element
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section)
-            break
+          const { offsetTop, offsetHeight } = element;
+          if (
+            scrollPosition >= offsetTop &&
+            scrollPosition < offsetTop + offsetHeight
+          ) {
+            setActiveSection(section);
+            break;
           }
         }
       }
-    }
+    };
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     const handleNavbarVisibility = () => {
       // Only show navbar on mobile
-      const isMobile = window.innerWidth < 1024
+      const isMobile = window.innerWidth < 1024;
       if (!isMobile) {
-        setShowNavbar(false)
-        return
+        setShowNavbar(false);
+        return;
       }
 
       // Find the social icons container
-      const socialIcons = document.getElementById("social-icons")
-      if (!socialIcons) return
+      const socialIcons = document.getElementById("social-icons");
+      if (!socialIcons) return;
 
-      const socialIconsRect = socialIcons.getBoundingClientRect()
+      const socialIconsRect = socialIcons.getBoundingClientRect();
       // Show navbar when social icons are scrolled past (bottom is above viewport top)
-      setShowNavbar(socialIconsRect.bottom < 0)
-    }
+      setShowNavbar(socialIconsRect.bottom < 0);
+    };
 
-    window.addEventListener("scroll", handleNavbarVisibility)
-    window.addEventListener("resize", handleNavbarVisibility)
-    handleNavbarVisibility() // Check on mount
+    window.addEventListener("scroll", handleNavbarVisibility);
+    window.addEventListener("resize", handleNavbarVisibility);
+    handleNavbarVisibility(); // Check on mount
 
     return () => {
-      window.removeEventListener("scroll", handleNavbarVisibility)
-      window.removeEventListener("resize", handleNavbarVisibility)
-    }
-  }, [])
+      window.removeEventListener("scroll", handleNavbarVisibility);
+      window.removeEventListener("resize", handleNavbarVisibility);
+    };
+  }, []);
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId)
+    const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
+      element.scrollIntoView({ behavior: "smooth" });
     }
-  }
+  };
 
   const recommendations = [
     {
@@ -100,7 +108,8 @@ export default function Portfolio() {
       In a very short period of tenure there are critical features, without which, theScore Bet platform would not be what it is today, without Svastik.`,
       author: "Igor Svistoun",
       title: "Engineering Manager, Accounts Core @ PENN Entertainment Inc.",
-      linkedinUrl: "https://www.linkedin.com/in/svastiksharma/details/recommendations/",
+      linkedinUrl:
+        "https://www.linkedin.com/in/svastiksharma/details/recommendations/",
     },
     {
       text: `Svastik was a great addition to our team, he is a fast learner, very committed software engineer and has immense potential to grow. It didn't take long after joining the team to start making great contributions on our code base, following our standards and being creative. I also want to 
@@ -109,13 +118,15 @@ export default function Portfolio() {
       It was great working with you!`,
       author: "Ataíde Neto",
       title: `Tech Lead Manager, Accounts Core @ PENN Entertainment Inc.`,
-      linkedinUrl: "https://www.linkedin.com/in/svastiksharma/details/recommendations/",
+      linkedinUrl:
+        "https://www.linkedin.com/in/svastiksharma/details/recommendations/",
     },
     {
       text: "Curious, great communicator, and solid technical skills. The energy and personality he brought to our team was essential in forming our identity. I look forward to working with him again in the future!",
       author: "Ryan Nesbitt",
       title: "Engineering Manager, SRE @ theScore",
-      linkedinUrl: "https://www.linkedin.com/in/svastiksharma/details/recommendations/",
+      linkedinUrl:
+        "https://www.linkedin.com/in/svastiksharma/details/recommendations/",
     },
     {
       text: `Svastik is a hard-working software engineer who finds creative solutions to complex problems. 
@@ -125,7 +136,8 @@ export default function Portfolio() {
       He is also a pleasant person to work with. He’s open to new ideas and collaborates well with people from different backgrounds.`,
       author: "Ziqi Zhou",
       title: "Site reliability engineer @ theScore",
-      linkedinUrl: "https://www.linkedin.com/in/svastiksharma/details/recommendations/",
+      linkedinUrl:
+        "https://www.linkedin.com/in/svastiksharma/details/recommendations/",
     },
     {
       text: `I am delighted to recommend Svastik for any development role. As Svastik's manager, I had the opportunity to work closely with 
@@ -138,9 +150,10 @@ export default function Portfolio() {
       Overall, I highly recommend Svastik for any development role. He is an exceptional developer who is eager to learn and has a great attitude. His technical skills, coupled with his ability to work collaboratively, make him an invaluable asset to any organization.`,
       author: "Terence Tan",
       title: "Full Stack Developer @ 4Pay Inc.",
-      linkedinUrl: "https://www.linkedin.com/in/svastiksharma/details/recommendations/",
-    }
-  ]
+      linkedinUrl:
+        "https://www.linkedin.com/in/svastiksharma/details/recommendations/",
+    },
+  ];
 
   return (
     <div className="min-h-screen lg:flex">
@@ -149,14 +162,22 @@ export default function Portfolio() {
         <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border shadow-sm lg:hidden">
           <div className="px-4 py-2 flex items-center justify-between max-w-7xl mx-auto">
             <div className="flex items-center gap-2 sm:gap-3">
-              <h1 className="text-base sm:text-lg font-bold text-foreground">Svastik Sharma</h1>
+              <h1 className="text-base sm:text-lg font-bold text-foreground">
+                Svastik Sharma
+              </h1>
               <span className="text-muted-foreground hidden sm:inline">|</span>
-              <h2 className="text-xs sm:text-sm font-medium text-muted-foreground">Software Engineer</h2>
+              <h2 className="text-xs sm:text-sm font-medium text-muted-foreground">
+                Software Engineer
+              </h2>
             </div>
             <div className="flex items-center gap-2 sm:gap-4">
               {[
                 { id: "about", label: "ABOUT", number: "01" },
-                { id: "recommendations", label: "RECOMMENDATIONS", number: "02" },
+                {
+                  id: "recommendations",
+                  label: "RECOMMENDATIONS",
+                  number: "02",
+                },
                 { id: "experience", label: "EXPERIENCE", number: "03" },
                 { id: "projects", label: "PROJECTS", number: "04" },
               ].map((section) => (
@@ -164,7 +185,9 @@ export default function Portfolio() {
                   key={section.id}
                   onClick={() => scrollToSection(section.id)}
                   className={`text-xs font-medium uppercase tracking-widest transition-colors ${
-                    activeSection === section.id ? "text-primary" : "text-muted-foreground hover:text-foreground"
+                    activeSection === section.id
+                      ? "text-primary"
+                      : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   {section.number}
@@ -188,19 +211,26 @@ export default function Portfolio() {
               />
             </div>
             <div>
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">Svastik Sharma</h1>
-              <h2 className="text-base sm:text-lg lg:text-xl font-medium text-foreground mt-1">Software Engineer</h2>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">
+                Svastik Sharma
+              </h1>
+              <h2 className="text-base sm:text-lg lg:text-xl font-medium text-foreground mt-1">
+                Software Engineer
+              </h2>
             </div>
           </div>
-          <p className="text-muted-foreground max-w-xs mb-8 lg:mb-16">
-          </p>
+          <p className="text-muted-foreground max-w-xs mb-8 lg:mb-16"></p>
 
           {/* Navigation */}
           <nav className="block mb-8 lg:mb-16">
             <ul className="space-y-4">
               {[
                 { id: "about", label: "ABOUT", number: "01" },
-                { id: "recommendations", label: "RECOMMENDATIONS", number: "02" },
+                {
+                  id: "recommendations",
+                  label: "RECOMMENDATIONS",
+                  number: "02",
+                },
                 { id: "experience", label: "EXPERIENCE", number: "03" },
                 { id: "projects", label: "PROJECTS", number: "04" },
               ].map((section) => (
@@ -211,14 +241,18 @@ export default function Portfolio() {
                   >
                     <span
                       className={`text-xs font-mono transition-all ${
-                        activeSection === section.id ? "text-primary scale-110" : "text-muted-foreground"
+                        activeSection === section.id
+                          ? "text-primary scale-110"
+                          : "text-muted-foreground"
                       }`}
                     >
                       {section.number}
                     </span>
                     <span
                       className={`transition-all ${
-                        activeSection === section.id ? "text-foreground translate-x-2" : "text-muted-foreground"
+                        activeSection === section.id
+                          ? "text-foreground translate-x-2"
+                          : "text-muted-foreground"
                       }`}
                     >
                       {section.label}
@@ -247,7 +281,10 @@ export default function Portfolio() {
             >
               <Linkedin className="w-6 h-6" />
             </a>
-            <a href="mailto:svastiksharma13@gmail.com" className="text-muted-foreground hover:text-foreground transition-colors">
+            <a
+              href="mailto:svastiksharma13@gmail.com"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
               <Mail className="w-6 h-6" />
             </a>
             <button
@@ -255,7 +292,11 @@ export default function Portfolio() {
               className="ml-auto text-muted-foreground hover:text-foreground transition-colors"
               aria-label="Toggle theme"
             >
-              {theme === "light" ? <Moon className="w-6 h-6" /> : <Sun className="w-6 h-6" />}
+              {theme === "light" ? (
+                <Moon className="w-6 h-6" />
+              ) : (
+                <Sun className="w-6 h-6" />
+              )}
             </button>
           </div>
         </div>
@@ -266,55 +307,54 @@ export default function Portfolio() {
         {/* About Section */}
         <section id="about" className="mb-24 scroll-mt-24">
           <div className="lg:hidden mb-3">
-            <h3 className="text-lg sm:text-xl font-bold uppercase tracking-widest text-foreground mb-2 pb-2 border-b-2 border-primary inline-block">About</h3>
+            <h3 className="text-lg sm:text-xl font-bold uppercase tracking-widest text-foreground mb-2 pb-2 border-b-2 border-primary inline-block">
+              About
+            </h3>
           </div>
           <div className="space-y-4 text-muted-foreground leading-relaxed">
             <p>
-              Hey, my name is Svastik Sharma and I'm a software engineer based in Toronto, Canada 🇨🇦.
-              I went to York University in Toronto where I studied Software Engineering (Big Data Stream).
-              
+              Hey, my name is Svastik Sharma and I'm a software engineer based
+              in Toronto, Canada 🇨🇦. I went to York University in Toronto where
+              I studied Software Engineering (Big Data Stream).
               <br />
               <br />
-
-              I'm passionate about building secure, scalable and well-tested software, with careful consideration for the infrastructure that supports it and the platform it's deployed on.
+              I'm passionate about building secure, scalable and well-tested
+              software, with careful consideration for the infrastructure that
+              supports it and the platform it's deployed on.
               <br />
               <br />
-              I enjoy turning complex technical problems into clear, structured problems that can be solved methodically.
-              I take pride in documenting insights, identifying edge cases and implementing robust, well-tested solutions that can be presented as real-world features.
-
+              I enjoy turning complex technical problems into clear, structured
+              problems that can be solved methodically. I take pride in
+              documenting insights, identifying edge cases and implementing
+              robust, well-tested solutions that can be presented as real-world
+              features.
               <br />
               <br />
               Outside of engineering, I try to:
               <br />
-              - Stay fit 🏋️‍♂️ 
+              - Stay fit 🏋️‍♂️
               <br />
               - Read books 📚
               <br />
               - Travel ✈️
-
               <br />
               <br />
-
-
-
             </p>
-            <p>
-
-            </p>
-            <p>
-
-            </p>
+            <p></p>
+            <p></p>
           </div>
         </section>
 
         {/* Recommendations Section */}
         <section id="recommendations" className="mb-24 scroll-mt-24">
           <div className="lg:hidden mb-3">
-            <h3 className="text-lg sm:text-xl font-bold uppercase tracking-widest text-foreground mb-2 pb-2 border-b-2 border-primary inline-block">Recommendations</h3>
+            <h3 className="text-lg sm:text-xl font-bold uppercase tracking-widest text-foreground mb-2 pb-2 border-b-2 border-primary inline-block">
+              Recommendations
+            </h3>
           </div>
           <div className="space-y-8">
             {recommendations.map((rec, index) => {
-              const isExpanded = expandedRecommendations.has(index)
+              const isExpanded = expandedRecommendations.has(index);
               return (
                 <div
                   key={index}
@@ -323,7 +363,9 @@ export default function Portfolio() {
                   <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-primary flex items-center justify-center">
                     <Linkedin className="w-2.5 h-2.5 text-primary-foreground" />
                   </div>
-                  <p className={`text-muted-foreground italic mb-1 ${isExpanded ? "" : "line-clamp-3"}`}>
+                  <p
+                    className={`text-muted-foreground italic mb-1 ${isExpanded ? "" : "line-clamp-3"}`}
+                  >
                     "{rec.text}"
                   </p>
                   <button
@@ -334,8 +376,12 @@ export default function Portfolio() {
                   </button>
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm text-foreground font-medium">{rec.author}</p>
-                      <p className="text-sm text-muted-foreground">{rec.title}</p>
+                      <p className="text-sm text-foreground font-medium">
+                        {rec.author}
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        {rec.title}
+                      </p>
                     </div>
                     {rec.linkedinUrl && (
                       <a
@@ -350,7 +396,7 @@ export default function Portfolio() {
                     )}
                   </div>
                 </div>
-              )
+              );
             })}
           </div>
         </section>
@@ -358,9 +404,77 @@ export default function Portfolio() {
         {/* Experience Section */}
         <section id="experience" className="mb-24 scroll-mt-24">
           <div className="lg:hidden mb-3">
-            <h3 className="text-lg sm:text-xl font-bold uppercase tracking-widest text-foreground mb-2 pb-2 border-b-2 border-primary inline-block">Experience</h3>
+            <h3 className="text-lg sm:text-xl font-bold uppercase tracking-widest text-foreground mb-2 pb-2 border-b-2 border-primary inline-block">
+              Experience
+            </h3>
           </div>
           <div className="space-y-12">
+            <div className="group">
+              <div className="grid lg:grid-cols-[25%_75%] gap-2 lg:gap-8">
+                <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mt-1">
+                  FEB 2026 — Present
+                </div>
+                <div>
+                  <div className="flex items-start gap-3 mb-2">
+                    <img
+                      src="/company_logo_1.png"
+                      alt="RealEstateContent.ai"
+                      className="w-12 h-12 object-contain flex-shrink-0 mt-1"
+                    />
+                    <div className="flex-1">
+                      <h4 className="text-foreground font-medium group-hover:text-primary transition-colors">
+                        <a
+                          href="https://www.realestatecontent.ai/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:underline"
+                        >
+                          Full Stack Software Engineer II, Full Time
+                          <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                        </a>
+                        <br />
+                        <span className="text-muted-foreground font-normal">
+                          RealEstateContent.ai · Toronto, ON
+                        </span>
+                      </h4>
+                    </div>
+                  </div>
+                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                    Working on the whole Platform i.e. all services
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Python
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Flask
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      MongoDB
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Vue
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      CSS
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      App engine
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      GCP
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Github Actions
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Log explorer
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div className="group">
               <div className="grid lg:grid-cols-[25%_75%] gap-2 lg:gap-8">
                 <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mt-1">
@@ -368,7 +482,11 @@ export default function Portfolio() {
                 </div>
                 <div>
                   <div className="flex items-start gap-3 mb-2">
-                    <img src="/company_logo_1.png" alt="PENN Entertainment" className="w-12 h-12 object-contain flex-shrink-0 mt-1" />
+                    <img
+                      src="/company_logo_1.png"
+                      alt="PENN Entertainment"
+                      className="w-12 h-12 object-contain flex-shrink-0 mt-1"
+                    />
                     <div className="flex-1">
                       <h4 className="text-foreground font-medium group-hover:text-primary transition-colors">
                         <a
@@ -388,20 +506,46 @@ export default function Portfolio() {
                     </div>
                   </div>
                   <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                    Led US <strong>iGaming compliance project</strong> from concept to launch. Improved app <strong>p95</strong> <strong>login time</strong> for <strong>5M users</strong> through database optimization. Enhanced security, monitoring, and reduced cloud costs via autoscaling tuning.
+                    Led US <strong>iGaming compliance project</strong> from
+                    concept to launch. Improved app <strong>p95</strong>{" "}
+                    <strong>login time</strong> for <strong>5M users</strong>{" "}
+                    through database optimization. Enhanced security,
+                    monitoring, and reduced cloud costs via autoscaling tuning.
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Elixir</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Phoenix</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">PostgreSQL</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Ecto</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">React</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">TypeScript</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Tailwind CSS</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Kubernetes</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Docker</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">ArgoCD</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Datadog</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Elixir
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Phoenix
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      PostgreSQL
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Ecto
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      React
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      TypeScript
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Tailwind CSS
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Kubernetes
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Docker
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      ArgoCD
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Datadog
+                    </span>
                   </div>
                 </div>
               </div>
@@ -414,7 +558,11 @@ export default function Portfolio() {
                 </div>
                 <div>
                   <div className="flex items-start gap-3 mb-2">
-                    <img src="/company_logo_1.png" alt="PENN Entertainment" className="w-12 h-12 object-contain flex-shrink-0 mt-1" />
+                    <img
+                      src="/company_logo_1.png"
+                      alt="PENN Entertainment"
+                      className="w-12 h-12 object-contain flex-shrink-0 mt-1"
+                    />
                     <div className="flex-1">
                       <h4 className="text-foreground font-medium group-hover:text-primary transition-colors">
                         <a
@@ -434,15 +582,32 @@ export default function Portfolio() {
                     </div>
                   </div>
                   <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                    Improved user retention by implementing auto-generated usernames and refining sign-up flows. Led <strong>PgBouncer</strong> migration with <strong>performance testing</strong> via <strong>K6</strong>, optimizing the <strong>Elixir</strong> codebase to improve database connection efficiency and reduce latency.
+                    Improved user retention by implementing auto-generated
+                    usernames and refining sign-up flows. Led{" "}
+                    <strong>PgBouncer</strong> migration with{" "}
+                    <strong>performance testing</strong> via <strong>K6</strong>
+                    , optimizing the <strong>Elixir</strong> codebase to improve
+                    database connection efficiency and reduce latency.
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Elixir</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">PostgreSQL</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">React</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">PgBouncer</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">K6</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Datadog</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Elixir
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      PostgreSQL
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      React
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      PgBouncer
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      K6
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Datadog
+                    </span>
                   </div>
                 </div>
               </div>
@@ -455,7 +620,11 @@ export default function Portfolio() {
                 </div>
                 <div>
                   <div className="flex items-start gap-3 mb-2">
-                    <img src="/company_logo_2.png" alt="theScore Bet" className="w-12 h-12 object-contain flex-shrink-0 mt-1" />
+                    <img
+                      src="/company_logo_2.png"
+                      alt="theScore Bet"
+                      className="w-12 h-12 object-contain flex-shrink-0 mt-1"
+                    />
                     <div className="flex-1">
                       <h4 className="text-foreground font-medium group-hover:text-primary transition-colors">
                         <a
@@ -475,14 +644,31 @@ export default function Portfolio() {
                     </div>
                   </div>
                   <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                    Designed and implemented a <strong>Golf</strong> data <strong>ingestion pipeline</strong> for <strong>3 million</strong> users using <strong>Elixir</strong>, <strong>MySQL</strong>, <strong>Oban</strong>, and <strong>PostgreSQL</strong>. Improved monitoring with <strong>Datadog</strong> and eliminated external dependencies by engineering Postgres mapping tables.
+                    Designed and implemented a <strong>Golf</strong> data{" "}
+                    <strong>ingestion pipeline</strong> for{" "}
+                    <strong>3 million</strong> users using{" "}
+                    <strong>Elixir</strong>, <strong>MySQL</strong>,{" "}
+                    <strong>Oban</strong>, and <strong>PostgreSQL</strong>.
+                    Improved monitoring with <strong>Datadog</strong> and
+                    eliminated external dependencies by engineering Postgres
+                    mapping tables.
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Elixir</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">MySQL</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Oban</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">PostgreSQL</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Datadog</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Elixir
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      MySQL
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Oban
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      PostgreSQL
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Datadog
+                    </span>
                   </div>
                 </div>
               </div>
@@ -495,7 +681,11 @@ export default function Portfolio() {
                 </div>
                 <div>
                   <div className="flex items-start gap-3 mb-2">
-                    <img src="/company_logo_2.png" alt="theScore Bet" className="w-12 h-12 object-contain flex-shrink-0 mt-1" />
+                    <img
+                      src="/company_logo_2.png"
+                      alt="theScore Bet"
+                      className="w-12 h-12 object-contain flex-shrink-0 mt-1"
+                    />
                     <div className="flex-1">
                       <h4 className="text-foreground font-medium group-hover:text-primary transition-colors">
                         <a
@@ -515,16 +705,35 @@ export default function Portfolio() {
                     </div>
                   </div>
                   <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                    Automated end-to-end release pipeline using <strong>GitHub Actions</strong> and <strong>ArgoCD</strong>. Developed a <strong>Slack bot</strong> with <strong>Python (Flask)</strong> and Jira REST API to automate release creation. Implemented PR validation and Feature Flag change detection to reduce manual QA.
+                    Automated end-to-end release pipeline using{" "}
+                    <strong>GitHub Actions</strong> and <strong>ArgoCD</strong>.
+                    Developed a <strong>Slack bot</strong> with{" "}
+                    <strong>Python (Flask)</strong> and Jira REST API to
+                    automate release creation. Implemented PR validation and
+                    Feature Flag change detection to reduce manual QA.
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">GitHub Actions</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">ArgoCD</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Python</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Flask</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Jira API</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Slack API</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">CRON</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      GitHub Actions
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      ArgoCD
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Python
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Flask
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Jira API
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Slack API
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      CRON
+                    </span>
                   </div>
                 </div>
               </div>
@@ -537,7 +746,11 @@ export default function Portfolio() {
                 </div>
                 <div>
                   <div className="flex items-start gap-3 mb-2">
-                    <img src="/company_logo_3.png" alt="4Pay Inc." className="w-12 h-12 object-contain flex-shrink-0 mt-1" />
+                    <img
+                      src="/company_logo_3.png"
+                      alt="4Pay Inc."
+                      className="w-12 h-12 object-contain flex-shrink-0 mt-1"
+                    />
                     <div className="flex-1">
                       <h4 className="text-foreground font-medium group-hover:text-primary transition-colors">
                         <a
@@ -557,13 +770,27 @@ export default function Portfolio() {
                     </div>
                   </div>
                   <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                    Developed workflows using <strong>JavaScript</strong>, <strong>jQuery</strong>, and <strong>CakePHP</strong> handling <strong>5+ API endpoints</strong>. Led team of <strong>3</strong> interns and supported <strong>DB migration</strong> by writing <strong>SQL</strong> scripts, resolving production issues post-migration.
+                    Developed workflows using <strong>JavaScript</strong>,{" "}
+                    <strong>jQuery</strong>, and <strong>CakePHP</strong>{" "}
+                    handling <strong>5+ API endpoints</strong>. Led team of{" "}
+                    <strong>3</strong> interns and supported{" "}
+                    <strong>DB migration</strong> by writing{" "}
+                    <strong>SQL</strong> scripts, resolving production issues
+                    post-migration.
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">JavaScript</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">jQuery</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">CakePHP</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">SQL</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      JavaScript
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      jQuery
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      CakePHP
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      SQL
+                    </span>
                   </div>
                 </div>
               </div>
@@ -576,7 +803,11 @@ export default function Portfolio() {
                 </div>
                 <div>
                   <div className="flex items-start gap-3 mb-2">
-                    <img src="/company_logo_3.png" alt="4Pay Inc." className="w-12 h-12 object-contain flex-shrink-0 mt-1" />
+                    <img
+                      src="/company_logo_3.png"
+                      alt="4Pay Inc."
+                      className="w-12 h-12 object-contain flex-shrink-0 mt-1"
+                    />
                     <div className="flex-1">
                       <h4 className="text-foreground font-medium group-hover:text-primary transition-colors">
                         <a
@@ -596,14 +827,29 @@ export default function Portfolio() {
                     </div>
                   </div>
                   <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                    Revamped existing project with new <strong>UI</strong> using <strong>JavaScript (jQuery)</strong>, <strong>Bootstrap</strong>, and <strong>CakePHP</strong>. Integrated <strong>RESTful APIs</strong> (XML to JSON) and reduced page loading times by <strong>30%</strong>, improving user satisfaction.
+                    Revamped existing project with new <strong>UI</strong> using{" "}
+                    <strong>JavaScript (jQuery)</strong>,{" "}
+                    <strong>Bootstrap</strong>, and <strong>CakePHP</strong>.
+                    Integrated <strong>RESTful APIs</strong> (XML to JSON) and
+                    reduced page loading times by <strong>30%</strong>,
+                    improving user satisfaction.
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">JavaScript</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">jQuery</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Bootstrap</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">CakePHP</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">RESTful APIs</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      JavaScript
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      jQuery
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Bootstrap
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      CakePHP
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      RESTful APIs
+                    </span>
                   </div>
                 </div>
               </div>
@@ -626,7 +872,9 @@ export default function Portfolio() {
         {/* Projects Section */}
         <section id="projects" className="mb-24 scroll-mt-24">
           <div className="lg:hidden mb-3">
-            <h3 className="text-lg sm:text-xl font-bold uppercase tracking-widest text-foreground mb-2 pb-2 border-b-2 border-primary inline-block">Projects</h3>
+            <h3 className="text-lg sm:text-xl font-bold uppercase tracking-widest text-foreground mb-2 pb-2 border-b-2 border-primary inline-block">
+              Projects
+            </h3>
           </div>
           <div className="space-y-12">
             <div className="group block">
@@ -654,9 +902,10 @@ export default function Portfolio() {
                     >
                       McMaster Club Website
                       <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                    </a>
-                    {" "}
-                    <span className="text-muted-foreground font-normal text-sm">|</span>{" "}
+                    </a>{" "}
+                    <span className="text-muted-foreground font-normal text-sm">
+                      |
+                    </span>{" "}
                     <a
                       href="https://github.com/svastiks/mcmaster-pcos-club"
                       target="_blank"
@@ -668,14 +917,25 @@ export default function Portfolio() {
                     </a>
                   </h4>
                   <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                    Building a club website for my sister's McMaster PCOS student club.
+                    Building a club website for my sister's McMaster PCOS
+                    student club.
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">TypeScript</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Next.js</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">React</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Tailwind CSS</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Netlify</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      TypeScript
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Next.js
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      React
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Tailwind CSS
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Netlify
+                    </span>
                   </div>
                 </div>
               </div>
@@ -706,9 +966,10 @@ export default function Portfolio() {
                     >
                       Auction E-commerce System
                       <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                    </a>
-                    {" "}
-                    <span className="text-muted-foreground font-normal text-sm">|</span>{" "}
+                    </a>{" "}
+                    <span className="text-muted-foreground font-normal text-sm">
+                      |
+                    </span>{" "}
                     <a
                       href="https://github.com/svastiks/auction-ecom-system-eecs-4413"
                       target="_blank"
@@ -720,17 +981,31 @@ export default function Portfolio() {
                     </a>
                   </h4>
                   <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                  Architected a full-stack auction platform using <strong>FastAPI</strong> and <strong>React</strong> 
-                  to support real-time bidding and order management. Containerized services with <strong>Docker</strong> and managed 
-                  database <strong>schema migrations with Alembic</strong>. Built a comprehensive Postman test suite to validate 
-                  end-to-end buyer and seller workflows.
+                    Architected a full-stack auction platform using{" "}
+                    <strong>FastAPI</strong> and <strong>React</strong>
+                    to support real-time bidding and order management.
+                    Containerized services with <strong>Docker</strong> and
+                    managed database{" "}
+                    <strong>schema migrations with Alembic</strong>. Built a
+                    comprehensive Postman test suite to validate end-to-end
+                    buyer and seller workflows.
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">TypeScript</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Next.js</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">React</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Tailwind CSS</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Netlify</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      TypeScript
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Next.js
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      React
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Tailwind CSS
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Netlify
+                    </span>
                   </div>
                 </div>
               </div>
@@ -754,15 +1029,17 @@ export default function Portfolio() {
                 <div className="order-1 lg:order-2">
                   <h4 className="text-foreground font-medium mb-2 group-hover:text-primary transition-colors">
                     <a
-                        href="https://youtu.be/KAKpj6vLnRs"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="hover:underline"
-                      >
-                        Workout Extractor
-                        <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                      </a>
-                    <span className="text-muted-foreground font-normal text-sm">|</span>{" "}
+                      href="https://youtu.be/KAKpj6vLnRs"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline"
+                    >
+                      Workout Extractor
+                      <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    </a>
+                    <span className="text-muted-foreground font-normal text-sm">
+                      |
+                    </span>{" "}
                     <a
                       href="https://github.com/svastiks/workout-extracter"
                       target="_blank"
@@ -774,16 +1051,34 @@ export default function Portfolio() {
                     </a>
                   </h4>
                   <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                    Developed an <strong>LLM-powered workout extraction tool</strong> that analyzes YouTube fitness videos to generate detailed exercise plans. The application features a creator catalogue of analyzed videos, and real-time video processing.
+                    Developed an{" "}
+                    <strong>LLM-powered workout extraction tool</strong> that
+                    analyzes YouTube fitness videos to generate detailed
+                    exercise plans. The application features a creator catalogue
+                    of analyzed videos, and real-time video processing.
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Spring Boot</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Java</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">PostgreSQL</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">TypeScript</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Next.js</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">React</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Tailwind CSS</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Spring Boot
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Java
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      PostgreSQL
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      TypeScript
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Next.js
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      React
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Tailwind CSS
+                    </span>
                   </div>
                 </div>
               </div>
@@ -814,9 +1109,10 @@ export default function Portfolio() {
                     >
                       Travel Planner
                       <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                    </a>
-                    {" "}
-                    <span className="text-muted-foreground font-normal text-sm">|</span>{" "}
+                    </a>{" "}
+                    <span className="text-muted-foreground font-normal text-sm">
+                      |
+                    </span>{" "}
                     <a
                       href="https://github.com/svastiks/travel-planner-app"
                       target="_blank"
@@ -828,16 +1124,35 @@ export default function Portfolio() {
                     </a>
                   </h4>
                   <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                    Developed a travel app with <strong>REST APIs</strong> for user-login, registration, and location marking using <strong>Node.js</strong> and <strong>Express</strong> and a frontend in <strong>React</strong>. Integrated <strong>Mapbox API</strong>, enabling users to add pins on a 3D globe to mark locations <em>(I enjoy travelling!)</em>
+                    Developed a travel app with <strong>REST APIs</strong> for
+                    user-login, registration, and location marking using{" "}
+                    <strong>Node.js</strong> and <strong>Express</strong> and a
+                    frontend in <strong>React</strong>. Integrated{" "}
+                    <strong>Mapbox API</strong>, enabling users to add pins on a
+                    3D globe to mark locations <em>(I enjoy travelling!)</em>
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Node.js</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Express</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">React</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">MongoDB</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Mapbox API</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">React-toastify</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Bcrypt</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Node.js
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Express
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      React
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      MongoDB
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Mapbox API
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      React-toastify
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Bcrypt
+                    </span>
                   </div>
                 </div>
               </div>
@@ -868,9 +1183,10 @@ export default function Portfolio() {
                     >
                       Investment Planner
                       <ExternalLink className="inline-block ml-2 w-4 h-4 -translate-y-[2px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                    </a>
-                    {" "}
-                    <span className="text-muted-foreground font-normal text-sm">|</span>{" "}
+                    </a>{" "}
+                    <span className="text-muted-foreground font-normal text-sm">
+                      |
+                    </span>{" "}
                     <a
                       href="https://github.com/svastiks/react-all-investments-portfolio"
                       target="_blank"
@@ -882,16 +1198,39 @@ export default function Portfolio() {
                     </a>
                   </h4>
                   <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                    Developed a <strong>React</strong> web app utilizing <strong>live API</strong> data to track crypto investments, featuring graphical representations of weekly performance. Implemented a secure login system with <strong>Node.js, Express.js,</strong> and <strong>MongoDB</strong>, enabling user account creation and data storage. <em>(Built this to enforce consistent investment habits!)</em>
+                    Developed a <strong>React</strong> web app utilizing{" "}
+                    <strong>live API</strong> data to track crypto investments,
+                    featuring graphical representations of weekly performance.
+                    Implemented a secure login system with{" "}
+                    <strong>Node.js, Express.js,</strong> and{" "}
+                    <strong>MongoDB</strong>, enabling user account creation and
+                    data storage.{" "}
+                    <em>
+                      (Built this to enforce consistent investment habits!)
+                    </em>
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">React</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Node.js</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Express</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">RESTful APIs</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">MongoDB</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">Chart.js</span>
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">CoinGecko API</span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      React
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Node.js
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Express
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      RESTful APIs
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      MongoDB
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      Chart.js
+                    </span>
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                      CoinGecko API
+                    </span>
                   </div>
                 </div>
               </div>
@@ -902,10 +1241,11 @@ export default function Portfolio() {
         {/* Footer */}
         <footer className="text-sm text-muted-foreground">
           <p>
-            Built with Next.js, React, TypeScript, and Tailwind CSS  ||  Svastik © 2026
+            Built with Next.js, React, TypeScript, and Tailwind CSS || Svastik ©
+            2026
           </p>
         </footer>
       </main>
     </div>
-  )
+  );
 }
