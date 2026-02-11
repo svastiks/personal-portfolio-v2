@@ -440,7 +440,7 @@ export default function Portfolio() {
                     </div>
                   </div>
                   <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                    Working on the whole Platform i.e. all services
+                    Working on the Platform. All services.
                   </p>
                   <div className="flex flex-wrap gap-2">
                     <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
